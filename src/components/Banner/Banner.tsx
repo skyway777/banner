@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { AdvantageItem } from '../AdvantageItem/AdvantageItem';
 import { Button } from '../Button/Button';
 import './Banner.css';
@@ -12,10 +12,17 @@ interface Props {
 
 const externalUrl = "https://finom.co";
 
+const getBannerClasses = (isOpened:boolean, isApplied:boolean) => {
+    const opened =`banner--${isOpened ? 'opened' : 'closed'}`;
+    const applied = `banner--${isApplied ? 'applied' : 'not-applied'}`;
+    return `banner ${opened} ${applied}`;
+}
+
 export const Banner = ({title, text, advantages}: Props) => {
     const [isOpened, setOpened] = useState(true);
     const [isApplied, setApplied] = useState(false);
     const [isRendered, setIsRendered] = useState(true);
+    const bannerRef = useRef<HTMLDivElement | null>(null);
 
     const delayedRemoveFromDom = () => {
         // remove from DOM when animation complete
@@ -33,11 +40,31 @@ export const Banner = ({title, text, advantages}: Props) => {
         delayedRemoveFromDom();
     }
 
+    const handleKeyPress = useCallback(
+        (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                close();
+            } else if (event.key === 'Enter' && document.activeElement === bannerRef.current) {
+                apply();
+            }
+        },
+        []
+    );
+
+    useEffect(() => {
+        window.addEventListener('keydown', handleKeyPress);
+        return () => {
+            window.removeEventListener('keydown', handleKeyPress);
+        };
+    }, [handleKeyPress]);
+
     return isRendered ? <div className={`overlay overlay--${isOpened ? 'opened' : 'closed'}`}>
         <section
             role="region"
-            className={`banner banner--${isOpened ? 'opened' : 'closed'} banner--${isApplied ? 'applied' : 'not-applied'}`}
-            aria-labelledby="banner-title" tabIndex={0}
+            className={getBannerClasses(isOpened, isApplied)}
+            aria-labelledby="banner-title"
+            tabIndex={1}
+            ref={bannerRef}
         >
             <header>
                 <h1 id="banner-title" className="banner__title">{title}</h1>
