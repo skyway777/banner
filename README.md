@@ -25,4 +25,4 @@ Choosing these technologies helps:
 - Reusable and customizable banner component
 - Clean and modular code structure
 - Easy to integrate into existing projects
-
+- Basic accessibility coverage: semantic layout and keyboard shortcuts
