@@ -1,0 +1,17 @@
+.advantage {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: left;
+    gap: 0.75rem;
+    font-weight: 500;
+}
+
+.advantage > * {
+    display: flex;
+}
+
+.advantage__img {
+    height: 1.5rem;
+    width: 1.5rem;
+}

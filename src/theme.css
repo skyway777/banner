@@ -1,0 +1,15 @@
+ :root {
+    --font-size: 16px;
+
+    --overlay-bg: rgb(243, 242, 247); 
+    --bg-content: rgb(255, 255, 255);
+    --text-default: rgb(11, 0, 46);
+    
+    --neutral-bg: rgba(11, 0, 46, 0.05);
+    --primary-bg: rgb(255, 76, 92);
+    --primary-color: rgb(255, 255, 255);
+    --ghost-color: rgba(11, 0, 46, 0.64);
+
+    --border-focus: rgb(102, 102, 255);
+    --border-radius: 0.75rem;
+ }

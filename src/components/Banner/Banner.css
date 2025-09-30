@@ -1,0 +1,185 @@
+@import "../../theme.css";
+
+ .overlay {
+    background-color: var(--overlay-bg);
+
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 1;
+    z-index: 999;
+ }
+
+ .overlay.overlay--closed {
+    opacity: 0;
+    animation-name: blur-animation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+ }
+ 
+ .banner {
+    --banner-padding: 2.75rem;
+    --max-width: 700px;
+    --border-size: 2px;
+    --vertical-gap: 2rem;
+    --horizontal-gap:2.75rem;
+
+    --bg-image-offset-b: -35px;
+    --bg-image-offset-r: -5px;
+
+    background-color: var(--bg-content);
+    border-radius: var(--border-radius);
+    color: var(--text-default);
+    font-size: 1rem;
+
+    max-width: calc(
+        var(--max-width) - 2 * var(--banner-padding) - 2 * var(--border-size)
+    );
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: calc(var(--vertical-gap) - var(--border-size));
+    padding-inline: calc(var(--horizontal-gap) - var(--border-size));
+    gap: var(--vertical-gap);
+
+    background-image: image-set(
+        url('../../assets/coins-currency.png') 1x,
+        url('../../assets/coins-currency@2x.png') 2x,
+        url('../../assets/coins-currency@3x.png') 3x,
+    );
+
+    background-repeat: no-repeat;
+    background-position: bottom var(--bg-image-offset-b) right var(--bg-image-offset-r);
+
+    border: solid 2px;
+}
+
+.banner--opened {
+    opacity: 1;
+}
+.banner--closed {
+    opacity: 0;
+    animation-name: blur-animation;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+}
+
+.banner--applied {
+    opacity: 0;
+    animation-name: banner-fade;
+    animation-duration: .5s;
+    animation-timing-function: ease-in-out;
+}
+
+.banner:focus-visible{
+    border: solid var(--border-focus) 2px;
+    outline: none;
+}
+
+.banner__title {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    margin:0;
+}
+
+.banner__close {
+    background: url(../../assets/close.svg) center center;
+
+    position: absolute;
+    top: calc(0.75rem - var(--border-size));
+    right: calc(0.75rem - var(--border-size));
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.content {
+    --content-gap:2.5rem;
+    display: flex;
+    flex-direction: row;
+    gap: var(--content-gap);
+    font-weight: 400;
+    line-height: 1.5rem;
+}
+
+.content__col {
+    flex: 1;
+}
+
+.content__advantages {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.buttons {
+    width: 100%;
+    padding-top:0.75rem;
+    display: flex;
+    flex-direction: row;
+}
+
+@media only screen and (max-width: 600px) {
+    .overlay {
+        overflow: scroll;
+    }
+    .banner {
+        --vertical-gap:1.25rem;
+        --horizontal-gap:1.25rem;
+        max-width: calc(100vw - 4 * var(--horizontal-gap));
+        min-width: calc(320px - 2 * var(--horizontal-gap));
+        background-image: none;
+    }
+    .banner__title {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+        padding-right: 2rem;
+    }
+    .banner__close {
+        width: 1.75rem;
+        height: 1.75rem;
+        background-size: 1.25rem, 1.25rem;
+        background-repeat: no-repeat;
+        top: calc(0.75rem - var(--border-size));
+        right: calc(0.75rem - var(--border-size));
+    }
+    .content {
+        --content-gap:1.25rem;
+        flex-direction: column;
+    }
+    .buttons {
+        flex-direction: column;
+        gap:1rem;
+        padding-top:.75rem;
+    }
+}
+
+@media only screen and (max-height: 410px) {
+    .overlay {
+        align-items: start;
+        justify-content: start;
+    }
+}
+
+
+@keyframes blur-animation {
+  0% { opacity: 1; filter: blur(0px) grayscale(0%); }
+  100% { opacity:0; filter: blur(10px) grayscale(100%); }
+}
+
+@keyframes banner-fade {
+  0% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(20px); }
+}
