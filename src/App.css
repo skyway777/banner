@@ -4,3 +4,9 @@ body {
   font-family: "Poppins", sans-serif;
   font-size: var(--font-size);
 }
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
