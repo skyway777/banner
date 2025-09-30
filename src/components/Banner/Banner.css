@@ -40,7 +40,8 @@
     border-radius: var(--border-radius);
     color: var(--text-default);
     font-size: 1rem;
-
+    
+    width: calc(100vw - 4 * var(--horizontal-gap));
     max-width: calc(
         var(--max-width) - 2 * var(--banner-padding) - 2 * var(--border-size)
     );
